@@ -21,8 +21,8 @@ export const AddMoney=()=>{
     const[amount,setAmount]=useState(0);
     return <Card title="Add Money">
         <div className="w-full">
-        <TextInput label={"Amount"} placeholder={"Amount"} onChange={(value)=>{
-            setAmount(value)
+        <TextInput label={"Amount"} placeholder={"Amount"}   onChange={(value)=>{
+            setAmount(value) 
         }}/>
         <div className="py-4 text-left">
         Bank
