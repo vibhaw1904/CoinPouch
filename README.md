@@ -1,3 +1,34 @@
+#Project's Title
+ 
+ CoinPouch
+
+#Project Description
+CoinPouch is a lightweight and user-friendly digital wallet application designed to streamline financial transactions. Whether you’re sending money to friends, paying merchants, or managing your own balance, CoinPouch has you covered.
+
+
+#Features
+
+1.User Login and Authentication:
+   Securely log in using your email or phone number.
+   Robust authentication mechanisms ensure your data remains private.
+   Bank Integration:
+2.Seamlessly connect to your bank accounts:that is dummy api which is made using express.
+3.On-Ramp: Deposit funds from your bank account into CoinPouch.
+4.Efficient Transfers:
+  Transfer money to other users via their phone number or name.
+5.Hot Paths:
+  Send Money: Quickly send funds to recipients within the app.
+6.Withdraw Balance: Easily withdraw your available balance to your linked bank account.
+7.Webhooks for Seamless Transactions:
+   CoinPouch integrates with bank webhooks(fake bank api made using express which handles only to send the wallet info about that user requested money from bank and when bank will approve the withdrawal.it send the info that withdrawal is successful you can update the user balance) to ensure real-time updates.
+
+
+
+#Getting Started
+Clone this repository.
+Set up your environment variables for authentication (email/phone) and bank integration.
+Install dependencies (npm install or yarn install).
+Run the app (npm start or yarn start).
 # Turborepo starter
 
 This is an official starter Turborepo.
