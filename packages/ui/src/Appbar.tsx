@@ -17,7 +17,10 @@ export const Appbar = ({
         <div className="text-3xl flex flex-col justify-center font-bold">
             CoinPouch
         </div>
-        <div className="flex flex-col justify-center pt-2">
+        
+        <div className="flex flex-row justify-center pt-2">
+        <div className='flex flex-col justify-center mr-4 h-full'>Hello, {user?.name}</div>
+       
             <Button onClick={user ? onSignout : onSignin}>{user ? "Logout" : "Login"}</Button>
         </div>
     </div>

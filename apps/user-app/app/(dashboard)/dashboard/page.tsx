@@ -18,6 +18,7 @@ async function getAllUsers() {
 export default async function() {
     const users=await getAllUsers()
     const session = await getServerSession(authOptions);
+    console.log(session)
     const loggedInUserId = session?.user?.id; 
     console.log(loggedInUserId)
     const otherUsers = users.filter((user) => user.id != loggedInUserId);
