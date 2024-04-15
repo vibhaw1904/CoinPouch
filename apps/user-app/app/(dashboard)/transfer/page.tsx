@@ -8,6 +8,7 @@ import { p2pTransfer } from "../../lib/actions/p2pTransfer"
 
 async function getBalance(){
     const session=await getServerSession(authOptions);
+    console.log(session)
     const balance=await prisma.balance.findFirst({
         where:{
             userId:Number(session?.user?.id)
