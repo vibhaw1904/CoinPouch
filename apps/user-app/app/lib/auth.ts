@@ -26,7 +26,7 @@ export const authOptions = {
                     return {
                         id: existingUser.id.toString(),
                         name: existingUser.name,
-                        number: existingUser.number
+                        email: existingUser.number
                     }
                 }
                 return null;
@@ -40,7 +40,13 @@ export const authOptions = {
                         password: hashedPassword
                     }
                 });
-            
+                await db.balance.create({
+                    data:{
+                        userId:user.id,
+                        amount:0,
+                        locked:0
+                    }
+                })
                 return {
                     id: user.id.toString(),
                     name: user.name,
