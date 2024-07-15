@@ -33,7 +33,7 @@ export const  User = ({
         v
         </div>
       </div>
-      <div className='flex flex-col h-full justify-center'key={u.id}>
+      <div className='flex flex-col h-full justify-center'>
         <div>{u.name}</div>
       </div>
     </div>
