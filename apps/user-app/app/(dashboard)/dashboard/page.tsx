@@ -5,36 +5,52 @@ import { User } from "../../../components/User";
 import { Card } from "@repo/ui/card";
 import { UserGraph } from "../../../components/UserGraph";
 import { timeStamp } from "console";
-async function getAllUsers() {
-    try {
-      const users = await prisma.user.findMany();
-      return users;
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      throw error;
-    } finally {
-      await prisma.$disconnect();
-    }
-  }
-export async function getTransaction(){
-  const session=await getServerSession(authOptions)
-  const transactions=await prisma.p2pTransfer.findMany({
-      where:{
-        OR:[
-          {fromUserId:Number(session?.user?.id)},
-          {toUserId:Number(session?.user?.id)}
-        ]
 
-      }
-  })
-  return transactions.map((u)=>({
-    amount:u.amount,
-    timestamp:u.timestamp,
-    fromUserId:u.fromUserId,
-    toUserId:u.toUserId,
-    currentUser:Number(session?.user?.id)
+interface Transaction {
+  amount: number;
+  timestamp: Date;
+  fromUserId: number;
+  toUserId: number;
+  currentUser: number;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  // Add other fields as necessary
+}
+async function getAllUsers(): Promise<User[]> {
+  try {
+    const users = await prisma.user.findMany();
+    return users;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function getTransaction(): Promise<Transaction[]> {
+  const session = await getServerSession(authOptions);
+  const transactions = await prisma.p2pTransfer.findMany({
+    where: {
+      OR: [
+        { fromUserId: Number(session?.user?.id) },
+        { toUserId: Number(session?.user?.id) }
+      ]
+    }
+  });
+  return transactions.map(u => ({
+    amount: u.amount,
+    timestamp: u.timestamp,
+    fromUserId: u.fromUserId,
+    toUserId: u.toUserId,
+    currentUser: Number(session?.user?.id)
   }));
 }
+
 export default async function() {
     const users=await getAllUsers()
     const session = await getServerSession(authOptions);

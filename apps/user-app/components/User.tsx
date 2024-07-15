@@ -3,7 +3,7 @@ import { Button } from '@repo/ui/button';
 import { Card } from '@repo/ui/card';
 import React from 'react'; 
 
-export const User = ({
+export const  User = ({
   user,
   
 }: {
@@ -26,10 +26,10 @@ export const User = ({
   return (
     <Card title="Available users">
   {user.map((u)=>(
-    <div className='flex flex-row justify-between mt-4 w-full'>
+    <div className='flex flex-row justify-between mt-4 w-full' key={u.id}>
     <div className='flex justify-between'>
       <div className='rounded-full w-12 h-12 flex justify-center mt-2 mr-2 bg-slate-200'>
-        <div className='flex flex-col justify-center h-full text-xl'>
+        <div className='flex flex-col justify-center h-full text-xl' >
         v
         </div>
       </div>
