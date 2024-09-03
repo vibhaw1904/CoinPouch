@@ -8,6 +8,7 @@ import { UserGraph } from "../../../components/UserGraph";
 import { motion } from "framer-motion";
 import { getOnRampTransactions } from "../transfer/page";
 import { OnRampTransactions } from "../../../components/OnRampTransaction";
+import { useState } from "react";
 interface Transaction {
   amount: number;
   timestamp: Date;
@@ -24,7 +25,7 @@ interface User {
   password: string;  // Add other fields as necessary
 }
 
-async function getAllUsers(): Promise<User[]> {
+export async function getAllUsers(): Promise<User[]> {
   try {
     const users = await prisma.user.findMany();
     return users;
@@ -58,11 +59,12 @@ async function getTransaction(): Promise<Transaction[]> {
 }
 
 const DashboardPage = async () => {
-  const users = await getAllUsers();
-  const session = await getServerSession(authOptions);
+
+
+
+  
   const transactions = await getTransaction();
-  const loggedInUserId = Number(session?.user?.id);
-  const otherUsers = users.filter((user) => user.id !== loggedInUserId);
+
   const allTransactions=await getOnRampTransactions()
   return (
     <div className="container mx-auto px-4 py-8">
@@ -74,11 +76,7 @@ const DashboardPage = async () => {
     </div>
     
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-1">
-        <div className="bg-white rounded-lg shadow-md h-full">
-          <User user={otherUsers} />
-        </div>
-      </div>
+     
       
       <div className="lg:col-span-2">
         <div className="bg-white rounded-lg shadow-md p-6 h-full">

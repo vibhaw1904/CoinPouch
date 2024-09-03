@@ -45,7 +45,7 @@ export const UserGraph = ({ transaction }: { transaction: Transactions[] }) => {
 
   if (!userAmount) {
     return (
-      <Card title="Transaction graph">
+      <Card title="">
         <div className="w-full h-96 flex items-center justify-center">
           <p>Loading...</p>
         </div>
@@ -54,7 +54,7 @@ export const UserGraph = ({ transaction }: { transaction: Transactions[] }) => {
   }
 
   return (
-    <Card title="Transaction graph">
+    <Card title="">
       <div className="w-full h-96">
         <LineChart
           width={900}

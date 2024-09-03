@@ -17,7 +17,7 @@ interface OnRampTransactionsProps {
 export const OnRampTransactions: React.FC<OnRampTransactionsProps> = ({ transactions }) => {
   if (!transactions.length) {
     return (
-      <Card title='Transaction list'>
+      <Card title=''>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,7 +31,7 @@ export const OnRampTransactions: React.FC<OnRampTransactionsProps> = ({ transact
   }
 
   return (
-    <Card title="Recent Transactions">
+    <Card title="">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
