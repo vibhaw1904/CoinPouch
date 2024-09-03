@@ -1,6 +1,6 @@
 
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from "@repo/ui/card";
 import { motion } from 'framer-motion';
 
@@ -15,7 +15,15 @@ interface OnRampTransactionsProps {
 }
 
 export const OnRampTransactions: React.FC<OnRampTransactionsProps> = ({ transactions }) => {
-  if (!transactions.length) {
+  const sortedTransactions = transactions.sort((a, b) => b.time.getTime() - a.time.getTime());
+  const[currentPage,setCurrentPage]=useState(1);
+  const pageSize=5;
+  const totalPages=Math.ceil(transactions.length/pageSize);
+  const startIndex=(currentPage-1)*pageSize;
+  const endIndex=startIndex+pageSize;
+  const currentTransactions=sortedTransactions.slice(startIndex,endIndex);
+
+  if (!sortedTransactions.length) {
     return (
       <Card title=''>
         <motion.div
@@ -40,7 +48,7 @@ export const OnRampTransactions: React.FC<OnRampTransactionsProps> = ({ transact
         Recent Transactions
       </motion.h2>
       <div className="p-4">
-        {transactions.map((t, index) => (
+        {currentTransactions.map((t, index) => (
           <motion.div
             key={t.time.toString()}
             initial={{ opacity: 0, x: -20 }}
@@ -74,6 +82,23 @@ export const OnRampTransactions: React.FC<OnRampTransactionsProps> = ({ transact
             </motion.div>
           </motion.div>
         ))}
+        <div className="flex justify-between items-center mt-4 px-4">
+        <button
+        onClick={()=>setCurrentPage(prev=>Math.max(prev-1,1))}
+         disabled={currentPage === 1}
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-50"
+        >
+          Next
+        </button>
+        </div>
     </div>
       
     </Card>
