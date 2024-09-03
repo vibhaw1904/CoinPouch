@@ -1,10 +1,13 @@
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 import prisma from "@repo/db/client";
 import { User } from "../../../components/User";
 import { Card } from "@repo/ui/card";
 import { UserGraph } from "../../../components/UserGraph";
-
+import { motion } from "framer-motion";
+import { getOnRampTransactions } from "../transfer/page";
+import { OnRampTransactions } from "../../../components/OnRampTransaction";
 interface Transaction {
   amount: number;
   timestamp: Date;
@@ -33,6 +36,8 @@ async function getAllUsers(): Promise<User[]> {
   }
 }
 
+
+
 async function getTransaction(): Promise<Transaction[]> {
   const session = await getServerSession(authOptions);
   const transactions = await prisma.p2pTransfer.findMany({
@@ -56,24 +61,35 @@ const DashboardPage = async () => {
   const users = await getAllUsers();
   const session = await getServerSession(authOptions);
   const transactions = await getTransaction();
-  const loggedInUserId = session?.user?.id;
+  const loggedInUserId = Number(session?.user?.id);
   const otherUsers = users.filter((user) => user.id !== loggedInUserId);
-  console.log(otherUsers);
+  const allTransactions=await getOnRampTransactions()
   return (
-    <div className="m-[3%]">
-      <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">Dashboard</div>
+    <div className="container mx-auto px-4 py-8">
+    <h1 className="text-4xl text-purple-700 font-bold mb-8">Dashboard</h1>
+    
+    <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 className="text-2xl font-semibold mb-4">Transaction Overview</h2>
       <UserGraph transaction={transactions.reverse()} />
-      <div className="flex justify-center items-center w-full">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-8 p-4">
-          <div className="lg:col-span-3">
-            <User user={otherUsers} />
-          </div>
-          {/* <div className="lg:col-span-5">
-            <P2PTransaction transactions={transactions}></P2PTransaction>
-          </div> */}
+    </div>
+    
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="lg:col-span-1">
+        <div className="bg-white rounded-lg shadow-md h-full">
+          <User user={otherUsers} />
+        </div>
+      </div>
+      
+      <div className="lg:col-span-2">
+        <div className="bg-white rounded-lg shadow-md p-6 h-full">
+          {/* <h2 className="text-2xl font-semibold mb-4">Recent Transactions</h2> */}
+         
+          <OnRampTransactions transactions={allTransactions}/>
         </div>
       </div>
     </div>
+  </div>
+
   );
 };
 

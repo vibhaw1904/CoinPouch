@@ -15,7 +15,7 @@ export const Appbar = ({
     onSignout
 }: AppbarProps) => {
     return <div className="flex justify-between border-b px-4 border-slate-300 ">
-        <div className="text-3xl flex flex-col justify-center font-bold">
+        <div className="text-3xl flex flex-col justify-center font-bold text-purple-700 ">
             CoinPouch
         </div>
         
