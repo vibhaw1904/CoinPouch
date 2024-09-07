@@ -1,7 +1,6 @@
 "use client"
 import { Button } from "@repo/ui/button"
 import { Card } from "@repo/ui/card"
-import { Center } from "@repo/ui/center"
 import { Select } from "@repo/ui/select"
 import {TextInput} from "@repo/ui/textinput"
 import { useState } from "react"
@@ -21,7 +20,7 @@ export const AddMoney=()=>{
     const[amount,setAmount]=useState("0");
     return <Card title="Add Money">
         <div className="w-full">    
-        <TextInput label={"Amount"} placeholder={"Amount"}   onChange={(value)=>{
+        <TextInput label={"Amount"} placeholder={"Amount"} value={amount}  onChange={(value)=>{
             setAmount(value) 
         }}/>
         <div className="py-4 text-left">
