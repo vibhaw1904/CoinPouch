@@ -16,10 +16,7 @@ interface UserProps {
 }
 
 export const User: React.FC<UserProps> = ({ user }) => {
-  const handleSendMoneyClick = () => {
-    window.location.href = '/p2p';
-    console.log('Send money clicked! Navigating to p2p page...');
-  };
+ 
 
   return (
     <Card title="">
@@ -58,12 +55,7 @@ export const User: React.FC<UserProps> = ({ user }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button 
-                onClick={handleSendMoneyClick}
-                // className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-              >
-                Send Money
-              </Button>
+            
             </motion.div>
           </motion.div>
         ))}
