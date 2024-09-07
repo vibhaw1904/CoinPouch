@@ -1,9 +1,31 @@
 import { getServerSession } from "next-auth";
 import { SendCard } from "../../../components/SendCard";
-import { getAllUsers } from "../dashboard/page";
 import { User } from "../../../components/User";
 import { authOptions } from "../../lib/auth";
+import prisma from "@repo/db/client";
 
+
+
+interface UserType {
+    id: number;
+    name: string | null;
+    email: string | null;
+    number: string;
+    password: string;  // Add other fields as necessary
+  }
+  
+   async function getAllUsers(): Promise<UserType[]> {
+    try {
+      const users = await prisma.user.findMany();
+      return users;
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+  
 export default async function() {
     const users = await getAllUsers();
     const session = await getServerSession(authOptions);
